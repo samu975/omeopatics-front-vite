@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRole: 'doctor' | 'patient';
+  allowedRole: string[];
 }
 
 export const ProtectedRoute = ({ children, allowedRole }: ProtectedRouteProps) => {
@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ children, allowedRole }: ProtectedRouteProps) =
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (userRole !== allowedRole) {
+  if (!allowedRole.includes(userRole || '')) {
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   }
 
