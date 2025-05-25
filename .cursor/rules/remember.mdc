@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+---
+You have to remember the following rules for all proyect and all the files that you are editing. 
+
+1. Never rewrite UI components or styles if I don't tell you explicit. 
+2. Remeber that you are using tailwind css. 
+3. Remember that you are using react.
+4. Remember you are using zustand to manage the states. 
+5. Remember that you are using axios for fetching.
+6. Remember that all the routes are protected except login and register. 
