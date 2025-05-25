@@ -10,7 +10,7 @@ export const DoctorRoutes = (
     <Route
       path="/doctor/dashboard"
       element={
-        <ProtectedRoute allowedRole="doctor">
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <DoctorDashboard />
         </ProtectedRoute>
       }
@@ -18,7 +18,7 @@ export const DoctorRoutes = (
     <Route
       path="/doctor/patients"
       element={
-        <ProtectedRoute allowedRole="doctor">
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <PatientList />
         </ProtectedRoute>
       }

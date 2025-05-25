@@ -11,7 +11,7 @@ export const PatientRoutes = (
     <Route
       path="/patient/dashboard"
       element={
-        <ProtectedRoute allowedRole="patient">
+        <ProtectedRoute allowedRole={['admin', 'patient']}>
           <PatientDashboard />
         </ProtectedRoute>
       }
@@ -19,7 +19,7 @@ export const PatientRoutes = (
     <Route
       path="/patient/book-appointment"
       element={
-        <ProtectedRoute allowedRole="patient">
+        <ProtectedRoute allowedRole={['admin', 'patient']}>
           <BookAppointment />
         </ProtectedRoute>
       }
@@ -27,7 +27,7 @@ export const PatientRoutes = (
     <Route
       path="/patient/medical-history"
       element={
-        <ProtectedRoute allowedRole="patient">
+        <ProtectedRoute allowedRole={['admin', 'patient']}>
           <MedicalHistory />
         </ProtectedRoute>
       }
