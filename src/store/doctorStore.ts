@@ -1,9 +1,9 @@
 import { create } from "zustand"
-import type { CreatePatient } from "../intefaces/User.interface"
+import type { Patient } from "../intefaces/User.interface"
 
 interface DoctorStore {
-  pacientes: CreatePatient[]
-  setPacientes: (pacientes: CreatePatient[]) => void
+  pacientes: Patient[]
+  setPacientes: (pacientes: Patient[]) => void
 }
 
 
