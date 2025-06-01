@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { toast, ToastContainer } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import type { CreatePatient as CreatePatientType } from "../../../intefaces/User.interface"
-import useDoctorStore from "../../../store/doctorStore"
 import NavBar from '../../../components/NavBar';
 
 
@@ -25,9 +24,6 @@ const CreatePatient = () => {
     phone: '',
     cedula: ''
   })
-
-  const{ pacientes, setPacientes} = useDoctorStore()
-
   const apiUrl = import.meta.env.VITE_PUBLIC_API_URL
 
   const postPaciente = async () => {
@@ -40,12 +36,6 @@ const CreatePatient = () => {
       body: JSON.stringify(patient)
     })
     if (response.status === 201) {
-      const data = await response.json()
-      if (pacientes.length > 0) {
-        setPacientes([...pacientes, data])
-      } else {
-        setPacientes([data])
-      }
       toast.success('Paciente creado correctamente', {
         onClose: () => navigate('/doctor/patients'),
         autoClose: 2000  
