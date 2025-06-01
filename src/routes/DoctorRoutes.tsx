@@ -1,10 +1,10 @@
 import { Route } from 'react-router-dom';
 import { ProtectedRoute } from '../middleware/authMiddleware';
 import DoctorDashboard from '../pages/doctor/DoctorDashboard';
+import PatientList from '../pages/doctor/patientControll/PatientList';
+import CreatePatient from '../pages/doctor/patientControll/CreatePatient';
 
-const PatientList = () => <div>Patient List</div>;
 const BankQuestions = () => <div>Bank Questions</div>;
-const CreatePatient = () => <div>Create Patient</div>;
 
 export const DoctorRoutes = (
   <>
