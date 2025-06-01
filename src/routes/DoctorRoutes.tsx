@@ -1,9 +1,10 @@
 import { Route } from 'react-router-dom';
 import { ProtectedRoute } from '../middleware/authMiddleware';
+import DoctorDashboard from '../pages/doctor/DoctorDashboard';
 
-// Aquí deberás importar tus componentes reales
-const DoctorDashboard = () => <div>Doctor Dashboard</div>;
 const PatientList = () => <div>Patient List</div>;
+const BankQuestions = () => <div>Bank Questions</div>;
+const CreatePatient = () => <div>Create Patient</div>;
 
 export const DoctorRoutes = (
   <>
@@ -20,6 +21,22 @@ export const DoctorRoutes = (
       element={
         <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <PatientList />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/bank-questions"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <BankQuestions />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/create-patient"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <CreatePatient />
         </ProtectedRoute>
       }
     />

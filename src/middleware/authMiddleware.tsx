@@ -8,7 +8,6 @@ interface ProtectedRouteProps {
 export const ProtectedRoute = ({ children, allowedRole }: ProtectedRouteProps) => {
   const location = useLocation();
   
-  // Aquí deberías implementar tu lógica real de autenticación
   const isAuthenticated = localStorage.getItem('token');
   const userRole = localStorage.getItem('role');
 
