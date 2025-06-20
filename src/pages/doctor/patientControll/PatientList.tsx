@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import useDoctorStore from '../../../store/doctorStore'
-import NavBar from '../../../components/NavBar'
 import Search from '../../../components/Search'
 import ModalAcceptDelete from '../../../components/ModalAcceptDelete'
+import PatientControllLayout from './PatientControllLayout'
 
 const PatientList = () => {
   const navigate = useNavigate()
@@ -90,7 +90,7 @@ const PatientList = () => {
                 <p>Cédula: {paciente.cedula}</p>
                 <div className="card-actions">
                   <button 
-                    onClick={() => navigate(`/doctor/patients/${paciente._id}`)}
+                    onClick={() => navigate(`/doctor/patient/${paciente._id}`)}
                     className="btn btn-primary"
                   >
                     Ver Paciente
@@ -134,12 +134,11 @@ const PatientList = () => {
   } 
 
   return (
-    <main className='h-auto bg-base-200 py-20 px-10'>
-      <NavBar />
+    <PatientControllLayout>
       <h1 className='font-bold text-3xl text-white'>Pacientes</h1>
       {showPacientes()}
       <ToastContainer position='bottom-left' autoClose={3000} />
-    </main>
+    </PatientControllLayout>
   )
 }
 

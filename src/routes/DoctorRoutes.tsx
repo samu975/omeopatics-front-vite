@@ -3,6 +3,7 @@ import { ProtectedRoute } from '../middleware/authMiddleware';
 import DoctorDashboard from '../pages/doctor/DoctorDashboard';
 import PatientList from '../pages/doctor/patientControll/PatientList';
 import CreatePatient from '../pages/doctor/patientControll/CreatePatient';
+import VerPaciente from '../pages/doctor/patientControll/VerPaciente';
 
 const BankQuestions = () => <div>Bank Questions</div>;
 
@@ -37,6 +38,14 @@ export const DoctorRoutes = (
       element={
         <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <CreatePatient />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/patient/:patientId"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <VerPaciente />
         </ProtectedRoute>
       }
     />

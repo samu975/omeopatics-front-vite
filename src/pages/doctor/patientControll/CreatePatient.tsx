@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { toast, ToastContainer } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import type { CreatePatient as CreatePatientType } from "../../../intefaces/User.interface"
-import NavBar from '../../../components/NavBar';
+import PatientControllLayout from "./PatientControllLayout";
 
 
 const CreatePatient = () => {
@@ -82,8 +82,7 @@ const CreatePatient = () => {
 
 
   return (
-    <div className="flex flex-col gap-8 p-8 min-h-screen justify-center items-center">
-      <NavBar />
+    <PatientControllLayout>
       <h1 className="text-4xl font-bold text-center">Crear Paciente</h1>
     <form onSubmit={handleSubmit} className='flex flex-col gap-8 w-full max-w-md items-center'>
         <input type="text" name="name" placeholder="Nombre" onChange={handleChange} className='input input-bordered input-primary w-full' />
@@ -95,7 +94,7 @@ const CreatePatient = () => {
         {error.cedula && <p className='text-red-500'>{error.cedula}</p>}
         <ToastContainer position='bottom-center'/>
     </form>
-    </div>
+    </PatientControllLayout>
   )
 }
 
