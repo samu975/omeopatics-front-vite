@@ -10,6 +10,11 @@ export const apiRequest = async (endpoint: string, options: ApiOptions = {}) => 
   const token = localStorage.getItem('token')
   
   if (!token) {
+    // Si no hay token, redirigir al login
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('role')
+    window.location.href = '/login'
     throw new Error('No hay token de autenticación')
   }
 
@@ -34,6 +39,16 @@ export const apiRequest = async (endpoint: string, options: ApiOptions = {}) => 
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({ message: 'Error desconocido' }))
+    
+    // Si el error es 401 (Unauthorized), limpiar localStorage y redirigir
+    if (response.status === 401) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      localStorage.removeItem('role')
+      window.location.href = '/login'
+      throw new Error('Sesión expirada. Por favor, inicia sesión nuevamente.')
+    }
+    
     throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`)
   }
 

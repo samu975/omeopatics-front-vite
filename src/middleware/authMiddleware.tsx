@@ -8,14 +8,24 @@ interface ProtectedRouteProps {
 export const ProtectedRoute = ({ children, allowedRole }: ProtectedRouteProps) => {
   const location = useLocation();
   
-  const isAuthenticated = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('role');
 
-  if (!isAuthenticated) {
+  // Si no hay token, redirigir al login
+  if (!token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!allowedRole.includes(userRole || '')) {
+  // Si hay token pero no hay rol, limpiar localStorage y redirigir al login
+  if (!userRole) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // Si el rol no está permitido para esta ruta
+  if (!allowedRole.includes(userRole)) {
     return <Navigate to="/unauthorized" state={{ from: location }} replace />;
   }
 

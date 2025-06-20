@@ -10,6 +10,7 @@ const DoctorDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('role');
     navigate('/login');
   }
 
@@ -27,14 +28,19 @@ const DoctorDashboard = () => {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    const userData = JSON.parse(user || '{}');
-    
-    if (!token || !user) {
-      navigate('/login');
-    } else {
-      setUser(userData);
+    // Solo obtener los datos del usuario del localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        // Si hay error al parsear, limpiar localStorage
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
+        navigate('/login');
+      }
     }
   }, [navigate]);
 
