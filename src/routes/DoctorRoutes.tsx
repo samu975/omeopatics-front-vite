@@ -4,6 +4,8 @@ import DoctorDashboard from '../pages/doctor/DoctorDashboard';
 import PatientList from '../pages/doctor/patientControll/PatientList';
 import CreatePatient from '../pages/doctor/patientControll/CreatePatient';
 import VerPaciente from '../pages/doctor/patientControll/VerPaciente';
+import VerHistorial from '../pages/doctor/patientControll/historial/VerHistorial';
+import CrearHistorial from '../pages/doctor/patientControll/historial/CrearHistorial';
 
 const BankQuestions = () => <div>Bank Questions</div>;
 
@@ -46,6 +48,22 @@ export const DoctorRoutes = (
       element={
         <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <VerPaciente />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/historial/:patientId"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <VerHistorial />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/doctor/create-historial/:patientId"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <CrearHistorial />
         </ProtectedRoute>
       }
     />

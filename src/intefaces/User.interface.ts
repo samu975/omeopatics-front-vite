@@ -30,3 +30,25 @@ export interface Patient {
   historial: any[];
 }
 
+export interface GetHistorial {
+  _id: string;
+  patient: string;
+  objetivoDeTerapia: string;
+  sesionesTrabajadas: SesionTrabajada[];
+  tratamientoASeguir: string;
+  fechaCreacion: string;
+}
+
+export interface SesionTrabajada {
+  fechaSesion: Date;
+  queSeHizo: string;
+  recomendacionesProximaSesion: string;
+}
+
+export interface CreateHistorial {
+  patient: string;
+  objetivoDeTerapia: string;
+  sesionesTrabajadas?: SesionTrabajada[];
+  tratamientoASeguir: string;
+  fechaCreacion?: Date;
+}
