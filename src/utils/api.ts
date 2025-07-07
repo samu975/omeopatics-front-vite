@@ -66,5 +66,6 @@ export const historialApi = {
   update: (id: string, data: CreateHistorial) => apiRequest(`/historial/${id}`, { method: 'PATCH', body: data }),
   delete: (id: string) => apiRequest(`/historial/${id}`, { method: 'DELETE' }),
   addSesion: (id: string, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones`, { method: 'POST', body: sesionData }),
+  editSesion: (id: string, sesionIndex: number, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones/${sesionIndex}`, { method: 'PATCH', body: sesionData }),
   removeSesion: (id: string, sesionIndex: number) => apiRequest(`/historial/${id}/sesiones/${sesionIndex}`, { method: 'DELETE' })
 } 

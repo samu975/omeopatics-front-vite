@@ -3,6 +3,7 @@ import PatientControllLayout from '../PatientControllLayout'
 import type { GetHistorial, Patient } from '../../../../intefaces/User.interface'
 import { useNavigate, useParams } from 'react-router-dom'
 import { historialApi } from '../../../../utils/api'
+import { FaEdit } from 'react-icons/fa'
 
 const VerHistorial = () => {
   const { patientId } = useParams()
@@ -31,6 +32,10 @@ const VerHistorial = () => {
 
   const redirectToAddSession = (historialId: string) => {
     navigate(`/doctor/historial/agregar-sesion/${historialId}`)
+  }
+
+  const handleClickOnEdit = (index: number, historialId: string) => {
+    navigate(`/doctor/historial/${historialId}/sesiones/${index}`)
   }
 
   const formatDate = (dateString: string) => {
@@ -107,6 +112,11 @@ const VerHistorial = () => {
                                         .reverse()
                                         .map((sesion, index) => (
                                         <div key={index} className='bg-base-200 p-4 rounded-lg mb-4'>
+                                          <div className='flex justify-end w-full cursor-pointer' onClick={() => {
+                                            handleClickOnEdit(index, historial._id)
+                                          }}>
+                                            <FaEdit className='flex self-end' />
+                                          </div>
                                             <p className='text-white'>Fecha: <span className='text-info font-bold'>{formatDate(sesion.fechaSesion.toString())}</span></p>
                                             <p className='text-white'>Que se hizo: <span className='text-info font-bold'>{sesion.queSeHizo}</span></p>
                                             <p className='text-white'>Recomendaciones para la próxima sesión: <span className='text-info font-bold'>{sesion.recomendacionesProximaSesion}</span></p>
@@ -118,15 +128,6 @@ const VerHistorial = () => {
                                     <p className='text-white text-center italic'>Todavía no hay sesiones con el paciente</p>
                                 </div>
                             )}
-                        </div>
-
-                        <div className='flex gap-4 mt-4'>
-                            <div className='btn btn-primary w-1/2 mx-auto text-white text-center font-bold text-lg'>
-                              Editar historial
-                            </div>
-                            <div className='btn btn-error w-1/2 mx-auto text-white text-center font-bold text-lg'>
-                              Eliminar historial
-                            </div>
                         </div>
                     </div>
                 ))}

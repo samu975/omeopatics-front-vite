@@ -7,6 +7,7 @@ import VerPaciente from '../pages/doctor/patientControll/VerPaciente';
 import VerHistorial from '../pages/doctor/patientControll/historial/VerHistorial';
 import CrearHistorial from '../pages/doctor/patientControll/historial/CrearHistorial';
 import AgregarSesion from '../pages/doctor/patientControll/historial/sesionesTrabajadas/AgregarSesion';
+import EditarSesion from '../pages/doctor/patientControll/historial/sesionesTrabajadas/EditarSesion';
 
 const BankQuestions = () => <div>Bank Questions</div>;
 
@@ -20,6 +21,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* ver pacientes  */}
     <Route
       path="/doctor/patients"
       element={
@@ -28,6 +30,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* ver banco de preguntas  */}
     <Route
       path="/doctor/bank-questions"
       element={
@@ -36,6 +39,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* crear paciente  */}
     <Route
       path="/doctor/create-patient"
       element={
@@ -44,6 +48,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* ver paciente  */}
     <Route
       path="/doctor/patient/:patientId"
       element={
@@ -52,6 +57,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* ver historial  */}
     <Route
       path="/doctor/historial/:patientId"
       element={
@@ -60,6 +66,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* Crear historial  */}
     <Route
       path="/doctor/create-historial/:patientId"
       element={
@@ -68,6 +75,7 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+    {/* Agregar sesion */}
     <Route
       path="/doctor/historial/agregar-sesion/:historialId"
       element={
@@ -76,5 +84,15 @@ export const DoctorRoutes = (
         </ProtectedRoute>
       }
     />
+
+{/* Editar sesiones realizadas  */}
+    <Route
+      path="/doctor/historial/:historialId/sesiones/:index"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <EditarSesion />
+        </ProtectedRoute>
+      }
+    />
   </>
-); 
+);
