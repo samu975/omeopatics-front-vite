@@ -34,8 +34,12 @@ const VerHistorial = () => {
     navigate(`/doctor/historial/agregar-sesion/${historialId}`)
   }
 
-  const handleClickOnEdit = (index: number, historialId: string) => {
+  const handleClickOnEditSesion = (index: number, historialId: string) => {
     navigate(`/doctor/historial/${historialId}/sesiones/${index}`)
+  }
+
+  const handleClickOnEditCampos = (historialId: string) => {
+    navigate(`/doctor/historial/editar/${historialId}/`)
   }
 
   const formatDate = (dateString: string) => {
@@ -100,6 +104,11 @@ const VerHistorial = () => {
                                 {historial.tratamientoASeguir}
                             </p>
                         </div>
+                        
+                        {/* boton editar historial  */}
+                        <div className='btn btn-primary mb-6' onClick={() => handleClickOnEditCampos(historial._id)}>
+                          <p>Editar campos</p>
+                        </div>
 
                         {/* Sesiones Trabajadas */}
                         <div>
@@ -113,7 +122,7 @@ const VerHistorial = () => {
                                         .map((sesion, index) => (
                                         <div key={index} className='bg-base-200 p-4 rounded-lg mb-4'>
                                           <div className='flex justify-end w-full cursor-pointer' onClick={() => {
-                                            handleClickOnEdit(index, historial._id)
+                                            handleClickOnEditSesion(index, historial._id)
                                           }}>
                                             <FaEdit className='flex self-end' />
                                           </div>

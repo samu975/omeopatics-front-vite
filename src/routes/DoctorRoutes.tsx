@@ -8,6 +8,7 @@ import VerHistorial from '../pages/doctor/patientControll/historial/VerHistorial
 import CrearHistorial from '../pages/doctor/patientControll/historial/CrearHistorial';
 import AgregarSesion from '../pages/doctor/patientControll/historial/sesionesTrabajadas/AgregarSesion';
 import EditarSesion from '../pages/doctor/patientControll/historial/sesionesTrabajadas/EditarSesion';
+import EditarHistorial from '../pages/doctor/patientControll/historial/EditarHistorial';
 
 const BankQuestions = () => <div>Bank Questions</div>;
 
@@ -91,6 +92,16 @@ export const DoctorRoutes = (
       element={
         <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <EditarSesion />
+        </ProtectedRoute>
+      }
+    />
+
+    {/* Editar campos de historial realizadas  */}
+    <Route
+      path="/doctor/historial/editar/:historialId"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <EditarHistorial />
         </ProtectedRoute>
       }
     />

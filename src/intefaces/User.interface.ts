@@ -52,3 +52,14 @@ export interface CreateHistorial {
   tratamientoASeguir: string;
   fechaCreacion?: Date;
 }
+
+export interface UpdateHistorial {
+  _id : string;
+  patient?: {
+    cedula: string
+    name: string
+    phone: string
+  }
+  objetivoDeTerapia?: string;
+  tratamientoASeguir?: string;
+}

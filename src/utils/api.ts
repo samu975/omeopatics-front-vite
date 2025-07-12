@@ -1,4 +1,4 @@
-import type { CreateHistorial, SesionTrabajada } from "../intefaces/User.interface"
+import type { CreateHistorial, SesionTrabajada, UpdateHistorial } from "../intefaces/User.interface"
 
 const apiUrl = import.meta.env.VITE_PUBLIC_API_URL
 
@@ -63,7 +63,7 @@ export const historialApi = {
   getAll: () => apiRequest('/historial'),
   getById: (id: string) => apiRequest(`/historial/${id}`),
   getByPatient: (patientId: string) => apiRequest(`/historial/patient/${patientId}`),
-  update: (id: string, data: CreateHistorial) => apiRequest(`/historial/${id}`, { method: 'PATCH', body: data }),
+  update: (id: string, data: UpdateHistorial) => apiRequest(`/historial/${id}`, { method: 'PATCH', body: data }),
   delete: (id: string) => apiRequest(`/historial/${id}`, { method: 'DELETE' }),
   addSesion: (id: string, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones`, { method: 'POST', body: sesionData }),
   editSesion: (id: string, sesionIndex: number, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones/${sesionIndex}`, { method: 'PATCH', body: sesionData }),
