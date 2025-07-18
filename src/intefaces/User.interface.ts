@@ -16,8 +16,8 @@ export interface CreatePatient {
   asignedFormulas: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   historial: any[];
+  loveLanguagesTestEnabled: boolean;
 }
-
 export interface Patient {
   _id: string;
   name: string;

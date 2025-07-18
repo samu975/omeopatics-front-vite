@@ -16,7 +16,8 @@ const CreatePatient = () => {
     cedula: '',
     password: '',
     asignedFormulas: [],
-    historial: []
+    historial: [],
+    loveLanguagesTestEnabled: false
   })
 
   const [error, setError] = useState({
