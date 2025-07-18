@@ -51,6 +51,13 @@ const CreatePatient = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPatient({ ...patient, [e.target.name]: e.target.value })
+    if (e.target.name === 'cedula') {
+      setError(prev => ({ ...prev, cedula: '' }))
+    }
+  }
+
+  const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPatient({ ...patient, [e.target.name]: e.target.checked })
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -86,10 +93,42 @@ const CreatePatient = () => {
     <PatientControllLayout>
       <h1 className="text-4xl font-bold text-center">Crear Paciente</h1>
     <form onSubmit={handleSubmit} className='flex flex-col gap-8 w-full max-w-md items-center'>
-        <input type="text" name="name" placeholder="Nombre" onChange={handleChange} className='input input-bordered input-primary w-full' />
-        <input type="text" name="cedula" placeholder="Cédula" onChange={handleChange} className='input input-bordered input-primary w-full' />
-        <input type="text" name="phone" placeholder="Teléfono" onChange={handleChange} className='input input-bordered input-primary w-full' />
-        <button type="submit" className='bg-success text-white p-2 rounded-md w-full'>Crear Paciente</button>
+        <input
+          type="text"
+          name="name"
+          placeholder="Nombre"
+          onChange={handleChange}
+          className='input input-bordered input-primary w-full'
+          value={patient.name}
+        />
+        <input
+          type="text"
+          name="cedula"
+          placeholder="Cédula"
+          onChange={handleChange}
+          className='input input-bordered input-primary w-full'
+          value={patient.cedula}
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Teléfono"
+          onChange={handleChange}
+          className='input input-bordered input-primary w-full'
+          value={patient.phone}
+        />
+        <label htmlFor="loveLanguagesTest" className="text-xl text-left w-full">Habilitar test lenguaje de amor ?</label>
+        <div className="flex justify-between w-full mb-4">
+          <input
+            id="loveLanguagesTest"
+            name="loveLanguagesTestEnabled"
+            type="checkbox"
+            className="checkbox checkbox-primary"
+            onChange={handleChecked}
+            checked={!!patient.loveLanguagesTestEnabled}
+          />
+        </div>
+        <button type="submit" className='bg-success text-white p-2 rounded-md w-full cursor-pointer'>Crear Paciente</button>
         {error.name && <p className='text-red-500'>{error.name}</p>}
         {error.phone && <p className='text-red-500'>{error.phone}</p>}
         {error.cedula && <p className='text-red-500'>{error.cedula}</p>}
