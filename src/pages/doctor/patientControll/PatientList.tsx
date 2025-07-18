@@ -13,18 +13,26 @@ const PatientList = () => {
   const { pacientes, setPacientes } = useDoctorStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedPacienteId, setSelectedPacienteId] = useState('')
+  const bearerToken = localStorage.getItem('token')
 
   const apiUrl = import.meta.env.VITE_PUBLIC_API_URL
 
   const fetchPacientes = useCallback(async () => {
     try {
-      const response = await fetch(`${apiUrl}/users`)
+      const response = await fetch(`${apiUrl}/users`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${bearerToken}`
+        }
+      }
+
+      )
       const data = await response.json()
       setPacientes(data)
     } catch {
       toast.error('Error al cargar los pacientes')
     }
-  }, [apiUrl, setPacientes])
+  }, [apiUrl, setPacientes, bearerToken])
 
   useEffect(() => {
     fetchPacientes()
