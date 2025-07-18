@@ -15,7 +15,6 @@ const Login = () => {
         cedula,
         password
       });
-      console.log(response);
       if (response.data.status === 200) {
         localStorage.setItem('token', response.data.data.access_token);
         localStorage.setItem('user', JSON.stringify(response.data.data.user));

@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import { ProtectedRoute } from '../middleware/authMiddleware';
 import DoctorDashboard from '../pages/doctor/DoctorDashboard';
 import PatientList from '../pages/doctor/patientControll/PatientList';
-import CreatePatient from '../pages/doctor/patientControll/CreatePatient';
+import CreatePatient from '../pages/doctor/patientControll/paciente/CreatePatient';
 import VerPaciente from '../pages/doctor/patientControll/VerPaciente';
 import VerHistorial from '../pages/doctor/patientControll/historial/VerHistorial';
 import CrearHistorial from '../pages/doctor/patientControll/historial/CrearHistorial';
@@ -42,7 +42,16 @@ export const DoctorRoutes = (
     />
     {/* crear paciente  */}
     <Route
-      path="/doctor/create-patient"
+      path="/doctor/paciente/create"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'doctor']}>
+          <CreatePatient />
+        </ProtectedRoute>
+      }
+    />
+    {/* Editar paciente  */}
+    <Route
+      path="/doctor/paciente/edit/:patientId"
       element={
         <ProtectedRoute allowedRole={['admin', 'doctor']}>
           <CreatePatient />

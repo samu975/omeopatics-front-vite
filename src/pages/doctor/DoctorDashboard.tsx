@@ -15,7 +15,7 @@ const DoctorDashboard = () => {
   }
 
   const handleCreatePatient = () => {
-    navigate('/doctor/create-patient');
+    navigate('/doctor/paciente/create');
   }
 
   const handlePatientList = () => {

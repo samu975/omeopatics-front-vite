@@ -68,7 +68,7 @@ const PatientList = () => {
       <div className="container mx-auto p-4 min-h-screen">
         <div className="flex justify-between items-center mb-6">
           <button 
-            onClick={() => navigate('/doctor/create-patient')}
+            onClick={() => navigate('/doctor/paciente/create')}
             className="btn btn-primary"
           >
             Crear Paciente
@@ -96,7 +96,7 @@ const PatientList = () => {
                     Ver Paciente
                   </button>
                   <button 
-                    onClick={() => navigate(`/doctor/patients/edit/${paciente._id}`)}
+                    onClick={() => navigate(`/doctor/paciente/edit/${paciente._id}`)}
                     className='btn btn-secondary'
                   >
                     Editar

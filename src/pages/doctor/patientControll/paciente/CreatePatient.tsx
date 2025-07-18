@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { toast, ToastContainer } from "react-toastify"
 import { useNavigate } from "react-router-dom"
-import type { CreatePatient as CreatePatientType } from "../../../intefaces/User.interface"
-import PatientControllLayout from "./PatientControllLayout";
+import type { CreatePatient as CreatePatientType } from "../../../../intefaces/User.interface"
+import PatientControllLayout from "../PatientControllLayout";
 
 
 const CreatePatient = () => {
