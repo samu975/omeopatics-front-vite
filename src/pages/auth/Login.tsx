@@ -26,7 +26,7 @@ const Login = () => {
           case 'admin':
             navigate('/doctor/dashboard');
             break;
-          case 'user':
+          case 'patient':
             navigate('/patient/dashboard');
             break;
           case 'doctor':

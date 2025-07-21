@@ -11,7 +11,7 @@ const Unauthorized = () => {
     const role = localStorage.getItem('role');
     if (role === 'admin' || role === 'doctor') {
       navigate('/doctor/dashboard');
-    } else if (role === 'user') {
+    } else if (role === 'patient') {
       navigate('/patient/dashboard');
     } else {
       navigate('/login');

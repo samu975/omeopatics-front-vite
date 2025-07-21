@@ -5,11 +5,13 @@ import { PatientRoutes } from './routes/PatientRoutes'
 import { PublicRoutes } from './routes/PublicRoutes'
 import MainLayout from './layout/mainLayout'
 import Unauthorized from './pages/Unauthorized'
+import { useLogout } from './hooks/useLogout'
 
 // Componente para manejar la redirección inicial
 const InitialRedirect = () => {
   const token = localStorage.getItem('token')
   const role = localStorage.getItem('role')
+  const logout = useLogout()
   
   if (!token) {
     return <Navigate to="/login" replace />
@@ -20,13 +22,11 @@ const InitialRedirect = () => {
     case 'admin':
     case 'doctor':
       return <Navigate to="/doctor/dashboard" replace />
-    case 'user':
+    case 'patient':
       return <Navigate to="/patient/dashboard" replace />
     default:
       // Si el rol no es válido, limpiar localStorage y redirigir al login
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      localStorage.removeItem('role')
+      logout()
       return <Navigate to="/login" replace />
   }
 }
