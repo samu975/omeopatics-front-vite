@@ -63,3 +63,31 @@ export interface UpdateHistorial {
   objetivoDeTerapia?: string;
   tratamientoASeguir?: string;
 }
+
+// Interfaces para tests de lenguajes del amor
+export interface LoveLanguageQuestion {
+  pregunta: string;
+}
+
+export interface LoveLanguageCategory {
+  categoria: string;
+  recibirAmor: LoveLanguageQuestion[];
+  expresarAmor: LoveLanguageQuestion[];
+}
+
+export interface LoveLanguageProgress {
+  answers: LoveLanguageCategoryAnswer[];
+  isCompleted: boolean;
+  progress: number;
+  totalCategories: number;
+}
+
+export interface LoveLanguageCategoryAnswer {
+  categoria: string;
+  recibirAmor: number[];
+  expresarAmor: number[];
+}
+
+export interface UserWithLoveLanguages extends User {
+  loveLanguagesTestEnabled: boolean;
+}

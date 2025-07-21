@@ -1,4 +1,4 @@
-import type { CreateHistorial, SesionTrabajada, UpdateHistorial } from "../intefaces/User.interface"
+import type { CreateHistorial, SesionTrabajada, UpdateHistorial, LoveLanguageCategoryAnswer } from "../intefaces/User.interface"
 
 const apiUrl = import.meta.env.VITE_PUBLIC_API_URL
 
@@ -68,4 +68,12 @@ export const historialApi = {
   addSesion: (id: string, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones`, { method: 'POST', body: sesionData }),
   editSesion: (id: string, sesionIndex: number, sesionData: SesionTrabajada) => apiRequest(`/historial/${id}/sesiones/${sesionIndex}`, { method: 'PATCH', body: sesionData }),
   removeSesion: (id: string, sesionIndex: number) => apiRequest(`/historial/${id}/sesiones/${sesionIndex}`, { method: 'DELETE' })
+}
+
+// Funciones para tests de lenguajes del amor
+export const loveLanguagesApi = {
+  getUser: (id: string) => apiRequest(`/Users/${id}`),
+  getProgress: () => apiRequest('/love-languages/progress'),
+  getQuestions: () => apiRequest('/love-languages/questions'),
+  submitCategoryAnswers: (data: LoveLanguageCategoryAnswer) => apiRequest('/love-languages/category-answers', { method: 'POST', body: data })
 } 

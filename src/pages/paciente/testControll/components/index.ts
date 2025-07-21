@@ -1,0 +1,6 @@
+export { default as LoadingSpinner } from './LoadingSpinner'
+export { default as ErrorMessage } from './ErrorMessage'
+export { default as WhatsAppContact } from './WhatsAppContact'
+export { default as TestContent } from './TestContent'
+export { default as ProgressBar } from './ProgressBar'
+export { default as TestHeader } from './TestHeader' 
