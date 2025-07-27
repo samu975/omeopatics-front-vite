@@ -3,14 +3,21 @@ import { loveLanguagesApi } from '../../../../utils/api'
 import type { LoveLanguageCategory, LoveLanguageCategoryAnswer } from '../../../../intefaces/User.interface'
 import { useNavigate } from 'react-router-dom'
 import CategoryForm from './CategoryForm'
+import { useTestProgress } from '../hooks/useTestProgress'
 
 const TestLenguajesAmor = () => {
   const [categories, setCategories] = useState<LoveLanguageCategory[]>([])
-  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
+  
+  const {
+    progress: testProgress,
+    goToNextCategory,
+    loadCategoryAnswers,
+    clearProgress
+  } = useTestProgress()
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -34,11 +41,12 @@ const TestLenguajesAmor = () => {
       await loveLanguagesApi.submitCategoryAnswers(answers)
       
       // Si es la última categoría, redirigir a los resultados
-      if (currentCategoryIndex === categories.length - 1) {
+      if (testProgress.currentCategoryIndex === categories.length - 1) {
+        clearProgress() // Limpiar progreso al completar
         navigate('/paciente/test-lenguajes-amor/resultados')
       } else {
         // Ir a la siguiente categoría
-        setCurrentCategoryIndex(prev => prev + 1)
+        goToNextCategory()
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al enviar las respuestas')
@@ -48,12 +56,35 @@ const TestLenguajesAmor = () => {
   }
 
   const handleGoBack = () => {
-    if (currentCategoryIndex > 0) {
-      setCurrentCategoryIndex(prev => prev - 1)
-    } else {
-      navigate('/paciente/ver-test')
-    }
+    navigate('/paciente/ver-test')
   }
+
+  // Cargar respuestas de la categoría actual cuando cambie
+  useEffect(() => {
+    if (categories.length > 0 && testProgress.currentCategoryIndex < categories.length) {
+      const currentCategory = categories[testProgress.currentCategoryIndex]
+      
+      // Verificar si la categoría actual ya está completa
+      const categoryAnswer = testProgress.categoryAnswers[currentCategory.categoria]
+      if (categoryAnswer && categoryAnswer.recibirAmor.length === 10 && categoryAnswer.expresarAmor.length === 10) {
+        // Si es la última categoría y está completa, redirigir a resultados
+        if (testProgress.currentCategoryIndex === categories.length - 1) {
+          clearProgress()
+          navigate('/paciente/test-lenguajes-amor/resultados')
+          return
+        } else {
+          // Si no es la última, ir a la siguiente categoría
+          goToNextCategory()
+          return
+        }
+      }
+      
+      // Solo cargar si no hay respuestas actuales para esta categoría
+      if (testProgress.recibirAmorAnswers.length === 0 && testProgress.expresarAmorAnswers.length === 0) {
+        loadCategoryAnswers(currentCategory.categoria)
+      }
+    }
+  }, [testProgress.currentCategoryIndex, categories])
 
   if (loading) {
     return (
@@ -89,8 +120,8 @@ const TestLenguajesAmor = () => {
     )
   }
 
-  const currentCategory = categories[currentCategoryIndex]
-  const progress = ((currentCategoryIndex + 1) / categories.length) * 100
+  const currentCategory = categories[testProgress.currentCategoryIndex]
+  const progress = ((testProgress.currentCategoryIndex + 1) / categories.length) * 100
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -105,7 +136,7 @@ const TestLenguajesAmor = () => {
               ← Volver
             </button>
             <span className="text-sm text-white">
-              Categoría {currentCategoryIndex + 1} de {categories.length}
+              Categoría {testProgress.currentCategoryIndex + 1} de {categories.length}
             </span>
           </div>
           
