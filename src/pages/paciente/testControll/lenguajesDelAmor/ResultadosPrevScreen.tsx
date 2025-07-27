@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
-const ResultadosTest = () => {
+const ResultadosPrevScreen = () => {
   const navigate = useNavigate()
 
-  const handleGoBack = () => {
-    navigate('/paciente/ver-test')
+  const handleGoToResults = () => {
+    navigate('/paciente/test-lenguajes-amor/resultados/analisis')
   }
 
   return (
@@ -14,10 +14,10 @@ const ResultadosTest = () => {
           <div className="card-body text-center">
             <div className="mb-6">
               <div className="text-6xl mb-4">🎉</div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-4">
+              <h1 className="text-3xl font-bold text-primary mb-4">
                 ¡Test Completado!
               </h1>
-              <p className="text-gray-600 text-lg">
+              <p className="text-white text-lg">
                 Has completado exitosamente el test de lenguajes del amor.
               </p>
             </div>
@@ -28,22 +28,12 @@ const ResultadosTest = () => {
               </svg>
               <span>Tus resultados han sido guardados correctamente.</span>
             </div>
-
-            <div className="mb-8">
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                Próximamente podrás ver tus resultados detallados aquí
-              </h2>
-              <p className="text-gray-600">
-                Estamos trabajando para mostrarte un análisis completo de tus lenguajes del amor.
-              </p>
-            </div>
-
             <div className="card-actions justify-center">
               <button 
-                onClick={handleGoBack}
+                onClick={handleGoToResults}
                 className="btn btn-primary btn-lg"
               >
-                Volver a Tests
+                Ver resultados
               </button>
             </div>
           </div>
@@ -53,4 +43,4 @@ const ResultadosTest = () => {
   )
 }
 
-export default ResultadosTest 
+export default ResultadosPrevScreen 

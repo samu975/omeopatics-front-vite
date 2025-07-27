@@ -75,5 +75,6 @@ export const loveLanguagesApi = {
   getUser: (id: string) => apiRequest(`/Users/${id}`),
   getProgress: () => apiRequest('/love-languages/progress'),
   getQuestions: () => apiRequest('/love-languages/questions'),
-  submitCategoryAnswers: (data: LoveLanguageCategoryAnswer) => apiRequest('/love-languages/category-answers', { method: 'POST', body: data })
+  submitCategoryAnswers: (data: LoveLanguageCategoryAnswer) => apiRequest('/love-languages/category-answers', { method: 'POST', body: data }),
+  getResults: () => apiRequest('/love-languages/results')
 } 

@@ -4,11 +4,19 @@ import ProgressBar from './ProgressBar'
 interface TestContentProps {
   progress: LoveLanguageProgress;
   onStartTest: () => void;
+  onViewResults: () => void;
 }
 
-const TestContent: React.FC<TestContentProps> = ({ progress, onStartTest }) => {
+const TestContent: React.FC<TestContentProps> = ({ progress, onStartTest, onViewResults }) => {
   const hasProgress = progress.answers.length > 0
-  const buttonText = hasProgress ? 'Continuar Test' : 'Comenzar Test'
+  
+  const functionHandleTextChange = () => {
+    if (progress.isCompleted) {
+      return 'Ver resultados'
+    } else {
+      return hasProgress ? 'Continuar Test' : 'Comenzar Test'
+    }
+  }
 
   return (
     <div className='min-h-screen'>
@@ -33,23 +41,23 @@ const TestContent: React.FC<TestContentProps> = ({ progress, onStartTest }) => {
                   />
                 )}
               </div>
-
+              
               <div className="card-actions justify-center">
                 <button 
-                  onClick={onStartTest}
+                  onClick={progress.isCompleted ? onViewResults : onStartTest}
                   className="btn btn-primary btn-lg"
                 >
-                  {buttonText}
+                  {functionHandleTextChange()}
                 </button>
               </div>
 
               {hasProgress && (
                 <div className="mt-8">
-                  <h3 className="text-lg font-semibold text-white mb-4">
+                  <h3 className="text-lg font-semibold text-secondary mb-4">
                     Estado del test:
                   </h3>
                   <div className="flex items-center gap-4">
-                    <div className="badge badge-lg">
+                    <div className={`${progress.isCompleted ? 'text-success' : 'text-warning'} badge badge-lg`} >
                       {progress.isCompleted ? 'Completado' : 'En progreso'}
                     </div>
                     <span className="text-sm text-white">

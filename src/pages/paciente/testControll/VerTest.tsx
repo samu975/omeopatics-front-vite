@@ -12,11 +12,14 @@ const VerTest = () => {
   const navigate = useNavigate()
   const { user, progress, loading, error } = useTestData()
 
-  const handleStartTest = () => {
+  const handleComenzarTest = () => {
     navigate('/paciente/test-lenguajes-amor')
   }
 
-  // Estados de carga y error
+  const handleVerResultados = () => {
+    navigate('/paciente/test-lenguajes-amor/resultados/analisis')
+  }
+
   if (loading) {
     return <LoadingSpinner />
   }
@@ -25,7 +28,6 @@ const VerTest = () => {
     return <ErrorMessage message={error} />
   }
 
-  // Usuario sin test habilitado
   if (!user?.loveLanguagesTestEnabled) {
     return (
       <div className='min-h-screen'>
@@ -41,11 +43,12 @@ const VerTest = () => {
 
   if (progress) {
     return (
-      <div className='min-h-screen'>
+      <div className='min-h-screen py-10'>
         <NavBar />
         <TestContent 
           progress={progress}
-          onStartTest={handleStartTest}
+          onStartTest={handleComenzarTest}
+          onViewResults={handleVerResultados}
         />
       </div>
     )

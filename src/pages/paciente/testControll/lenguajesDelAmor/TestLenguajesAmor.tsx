@@ -4,6 +4,7 @@ import type { LoveLanguageCategory, LoveLanguageCategoryAnswer } from '../../../
 import { useNavigate } from 'react-router-dom'
 import CategoryForm from './CategoryForm'
 import { useTestProgress } from '../hooks/useTestProgress'
+import NavBarOnlyGoBack from '../components/NavBarOnlyGoBack'
 
 const TestLenguajesAmor = () => {
   const [categories, setCategories] = useState<LoveLanguageCategory[]>([])
@@ -40,12 +41,10 @@ const TestLenguajesAmor = () => {
       setSubmitting(true)
       await loveLanguagesApi.submitCategoryAnswers(answers)
       
-      // Si es la última categoría, redirigir a los resultados
       if (testProgress.currentCategoryIndex === categories.length - 1) {
         clearProgress() // Limpiar progreso al completar
         navigate('/paciente/test-lenguajes-amor/resultados')
       } else {
-        // Ir a la siguiente categoría
         goToNextCategory()
       }
     } catch (err) {
@@ -55,35 +54,27 @@ const TestLenguajesAmor = () => {
     }
   }
 
-  const handleGoBack = () => {
-    navigate('/paciente/ver-test')
-  }
-
-  // Cargar respuestas de la categoría actual cuando cambie
   useEffect(() => {
     if (categories.length > 0 && testProgress.currentCategoryIndex < categories.length) {
       const currentCategory = categories[testProgress.currentCategoryIndex]
       
-      // Verificar si la categoría actual ya está completa
       const categoryAnswer = testProgress.categoryAnswers[currentCategory.categoria]
       if (categoryAnswer && categoryAnswer.recibirAmor.length === 10 && categoryAnswer.expresarAmor.length === 10) {
-        // Si es la última categoría y está completa, redirigir a resultados
         if (testProgress.currentCategoryIndex === categories.length - 1) {
           clearProgress()
           navigate('/paciente/test-lenguajes-amor/resultados')
           return
         } else {
-          // Si no es la última, ir a la siguiente categoría
           goToNextCategory()
           return
         }
       }
       
-      // Solo cargar si no hay respuestas actuales para esta categoría
       if (testProgress.recibirAmorAnswers.length === 0 && testProgress.expresarAmorAnswers.length === 0) {
         loadCategoryAnswers(currentCategory.categoria)
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testProgress.currentCategoryIndex, categories])
 
   if (loading) {
@@ -129,12 +120,7 @@ const TestLenguajesAmor = () => {
         {/* Header con progreso */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <button 
-              onClick={handleGoBack}
-              className="btn btn-ghost btn-sm"
-            >
-              ← Volver
-            </button>
+            <NavBarOnlyGoBack />
             <span className="text-sm text-white">
               Categoría {testProgress.currentCategoryIndex + 1} de {categories.length}
             </span>
