@@ -26,17 +26,17 @@ const PatientDashboard = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen px-20">
       <div className='flex justify-end w-full my-6 lg:text-xl'>
-        <div className='btn btn-error text-white lg:h-12 lg:text-lg' onClick={logout}>Cerrar sesión</div>
+        <div className='btn btn-error -mt-6 mb-5 text-white lg:h-12 lg:text-lg' onClick={logout}>Cerrar sesión</div>
       </div>
-      <h1 className="text-2xl font-bold lg:text-4xl">Bienvenido {user?.name}</h1>
-      <h2 className="text-lg lg:text-2xl lg:my-4">Que deseas hacer hoy ? </h2>
+      <h1 className="text-2xl font-bold lg:text-4xl">Bienvenido <span className='text-primary'>{user?.name}</span></h1>
+      <h2 className="text-lg my-6 lg:text-2xl lg:my-8">Que deseas hacer hoy ? </h2>
       <div className='flex flex-col items-center justify-center my-4 gap-4 lg:gap-6'>
         {/* Boton formulas asignadas */}
         {/* <div className='btn btn-success w-full lg:text-xl lg:py-4 text-white lg:h-12' onClick={() => redirectTo('/patient/formulas/ver')}>
           Ver formulas asignadas
         </div> */}
         <div className='btn btn-primary w-full lg:text-xl lg:py-4 text-white lg:h-12' onClick={() => redirectTo('/patient/test/ver')}>
-          Ver test
+          Ver test asignados
         </div>
       </div>
     </div>
