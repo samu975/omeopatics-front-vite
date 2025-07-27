@@ -65,7 +65,7 @@ const languageRouteImg = {
   'Actos de servicio': "/img/resultado-servicios.png",
   'Regalos': "/img/resultado-regalos.png",
   'Tiempo de calidad': "/img/resultado-tiempo.png",
-  'Contacto físico (Kinestésico)': ""
+  'Contacto físico (Kinestésico)': "/img/resultado-contacto.png"
 }
 
 function getLanguageColor(categoria: string) {
