@@ -5,6 +5,7 @@ import VerTest from '../pages/paciente/testControll/VerTest';
 import TestLenguajesAmor from '../pages/paciente/testControll/lenguajesDelAmor/TestLenguajesAmor';
 import ResultadosScreen from '../pages/paciente/testControll/lenguajesDelAmor/ResultadosPrevScreen';
 import ResultadosAnalisis from '../pages/paciente/testControll/lenguajesDelAmor/ResultadosAnalisis';
+import ResultadosComparados from '../pages/paciente/testControll/lenguajesDelAmor/ResultadosComparados';
 
 
 export const PatientRoutes = (
@@ -70,7 +71,7 @@ export const PatientRoutes = (
       path="/paciente/test-lenguajes-amor/resultados/analisis/resultados-comparacion"
       element={
         <ProtectedRoute allowedRole={['admin', 'patient']}>
-          <ResultadosAnalisis />
+          <ResultadosComparados />
         </ProtectedRoute>
       }
     />
