@@ -51,7 +51,11 @@ export const apiRequest = async (endpoint: string, options: ApiOptions = {}) => 
       throw new Error('Sesión expirada. Por favor, inicia sesión nuevamente.')
     }
     
-    throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`)
+    return Promise.reject({
+      status: response.status,
+      message: errorData.message || 'Error al realizar la solicitud',
+      data: errorData
+    })
   }
 
   return response.json()
@@ -76,5 +80,6 @@ export const loveLanguagesApi = {
   getProgress: () => apiRequest('/love-languages/progress'),
   getQuestions: () => apiRequest('/love-languages/questions'),
   submitCategoryAnswers: (data: LoveLanguageCategoryAnswer) => apiRequest('/love-languages/category-answers', { method: 'POST', body: data }),
-  getResults: () => apiRequest('/love-languages/results')
-} 
+  getResults: () => apiRequest('/love-languages/results'),
+  compareResults: (cedula: string) => apiRequest(`/love-languages/compare-with-partner`, { method: 'POST', body: { partnerCedula: cedula } })
+}

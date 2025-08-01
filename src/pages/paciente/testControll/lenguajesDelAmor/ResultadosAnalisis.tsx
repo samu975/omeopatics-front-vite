@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts'
 import { loveLanguagesApi } from '../../../../utils/api'
 import { FaWhatsapp } from 'react-icons/fa'
 import NavBarOnlyGoBack from '../components/NavBarOnlyGoBack'
+import { useNavigate } from 'react-router-dom'
 
 interface Score {
   categoria: string
@@ -85,7 +86,32 @@ const ResultadosAnalisis = () => {
   const [data, setData] = useState<ResultsResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [errorCedula, setErrorCedula] = useState<string | null>(null)
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth)
+  const [cedulaPareja, setCedulaPareja] = useState<string>('')
+
+  const navigate = useNavigate()
+
+  async function handleCompareScore(cedula: string) {
+    if (cedula.length > 4) {
+      setErrorCedula(null)
+      loveLanguagesApi.compareResults(cedula)
+        .then((response) => {
+          if (response) {
+            navigate('resultados-comparacion', { state: { partnerResults: response } })
+          }
+        })
+        .catch((error) => {
+          if (error.status === 404) {
+            setErrorCedula('tu pareja no tiene resultados disponibles')
+          } else {
+            setErrorCedula('No se pudieron cargar los resultados')
+          }
+        })
+    } else {
+      setErrorCedula('Por favor, ingresa una cédula válida')
+    }
+  }
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
@@ -122,6 +148,7 @@ const ResultadosAnalisis = () => {
   const primarioExpresar = sortedExpresar[0]
   const secundarioExpresar = sortedExpresar[1]
 
+
   const chartHeight = windowWidth > 500 ? 350 : 220
   const outerRadius = windowWidth > 500 ? 120 : 70
 
@@ -140,7 +167,6 @@ const ResultadosAnalisis = () => {
     )
   }
 
-  console.log(getLanguageRoutes(primarioRecibir.categoria))
 
   return (
     <div className="container mx-auto px-2 py-6 max-w-2xl">
@@ -180,6 +206,46 @@ const ResultadosAnalisis = () => {
           <div className="mt-4" />
           {renderCustomLegend({ payload: recibirData })}
         </div>
+        <div className='bg-base-200 rounded-xl p-6 flex flex-col items-center shadow'>
+          <ResponsiveContainer width="100%" height={chartHeight}>
+            <BarChart
+              data={recibirData}
+              layout="vertical"
+              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            >
+              <Tooltip />
+              <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={30}>
+                {recibirData.map((entry, idx) => (
+                  <Cell key={`bar-cell-${idx}`} fill={entry.color} />
+                ))}
+                {/* <LabelList dataKey="value" position="right" formatter={(value) => `${Math.round((value as number / 10) * 100)}%`} style={{ fill: '#fff', fontWeight: 600 }} /> */}
+              </Bar>
+              <XAxis
+                type="number"
+                domain={[0, 10]}
+                hide
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                width={150}
+                tick={{ fill: '#fff', fontWeight: 600 }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+          {/* Leyenda personalizada debajo del gráfico */}
+          <ul className="w-full flex flex-col gap-2 mt-4">
+            {recibirData.map((entry, idx) => (
+              <li key={`legend-bar-${idx}`} className="flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <span style={{ background: entry.color, width: 16, height: 16, display: 'inline-block', borderRadius: 4 }}></span>
+                  <span style={{ color: entry.color, fontWeight: 600 }}>{entry.name}</span>
+                </span>
+                <span style={{ color: entry.color, fontWeight: 700 }}>{`${Math.round((entry.value / 10) * 100)}%`}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="bg-base-200 rounded-xl p-6 flex flex-col items-center shadow">
           <h2 className="text-primary font-semibold text-lg mb-4">¿Cómo te gusta expresar amor?</h2>
           <div className="w-full flex justify-center">
@@ -208,7 +274,48 @@ const ResultadosAnalisis = () => {
           <div className="mt-4" />
           {renderCustomLegend({ payload: expresarData })}
         </div>
+        
       </div>
+   <div className='bg-base-200 rounded-xl p-6 flex flex-col items-center shadow'>
+          <ResponsiveContainer width="100%" height={chartHeight}>
+            <BarChart
+              data={expresarData}
+              layout="vertical"
+              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            >
+              <Tooltip />
+              <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={30}>
+                {expresarData.map((entry, idx) => (
+                  <Cell key={`bar-cell-${idx}`} fill={entry.color} />
+                ))}
+                {/* <LabelList dataKey="value" position="right" formatter={(value) => `${Math.round((value as number / 10) * 100)}%`} style={{ fill: '#fff', fontWeight: 600 }} /> */}
+              </Bar>
+              <XAxis
+                type="number"
+                domain={[0, 10]}
+                hide
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                width={150}
+                tick={{ fill: '#fff', fontWeight: 600 }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+          {/* Leyenda personalizada debajo del gráfico */}
+          <ul className="w-full flex flex-col gap-2 mt-4">
+            {recibirData.map((entry, idx) => (
+              <li key={`legend-bar-${idx}`} className="flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <span style={{ background: entry.color, width: 16, height: 16, display: 'inline-block', borderRadius: 4 }}></span>
+                  <span style={{ color: entry.color, fontWeight: 600 }}>{entry.name}</span>
+                </span>
+                <span style={{ color: entry.color, fontWeight: 700 }}>{`${Math.round((entry.value / 10) * 100)}%`}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
       {/* Apartado Recibir Amor */}
       <div className="mb-10">
@@ -279,6 +386,21 @@ const ResultadosAnalisis = () => {
           <FaWhatsapp size={24} className='text-white' />
           Más información
         </a>
+      </div>
+
+      {/* Comparar con mi pareja */}
+      <div className="bg-base-100 rounded-xl p-6 flex flex-col items-center gap-4 shadow mt-10">
+        <h4 className="text-primary text-lg font-bold mb-2 text-center">Comparar con mi pareja</h4>
+        <p className="text-primary-content text-center mb-2">Compara tus lenguajes de amor con los de tu pareja y enriquece su relación.</p>
+            <div className='flex flex-col gap-3 w-full'>
+              <label className='font-semibold text-primary' htmlFor="pareja">Cédula de mi pareja</label>
+               <input type="text" name='pareja' className='input input-bordered w-full lg:text-xl' value={cedulaPareja} onChange={(e) => setCedulaPareja(e.target.value)} />
+               <button className='btn btn-secondary btn-lg w-1/2 self-center ' onClick={(e) => {
+                 e.preventDefault();
+                 handleCompareScore(cedulaPareja);
+               }}>Comparar</button>
+              {errorCedula && <p className='text-error text-center mt-2'>{errorCedula}</p>}
+            </div>
       </div>
     </div>
   )

@@ -66,5 +66,13 @@ export const PatientRoutes = (
         </ProtectedRoute>
       }
     />
+    <Route
+      path="/paciente/test-lenguajes-amor/resultados/analisis/resultados-comparacion"
+      element={
+        <ProtectedRoute allowedRole={['admin', 'patient']}>
+          <ResultadosAnalisis />
+        </ProtectedRoute>
+      }
+    />
   </>
 ); 
