@@ -1,3 +1,22 @@
+/* Asegurar que el botón del ojo siempre esté visible y por encima del input */
+.password-eye-btn {
+  z-index: 10;
+  pointer-events: auto;
+  background: transparent;
+}
+/* Quitar el focus visual de los inputs para evitar que el icono desaparezca */
+input:focus, .input:focus, input.input-bordered:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+/* Ocultar el botón nativo de mostrar contraseña en Edge y el botón de autocompletar en Chrome/Safari */
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
