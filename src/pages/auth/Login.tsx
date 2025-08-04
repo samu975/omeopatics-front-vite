@@ -48,7 +48,7 @@ const Login = () => {
     <>
     <div className='min-h-screen flex flex-col items-center justify-center'>
         <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-10 md:mb-12 '>Iniciar sesión</h1>
-        <form onSubmit={handleSubmit} className='flex flex-col card p-4 md:p-8 lg:p-12 shadow-lg bg-base-100 lg:w-1/4'>
+        <form onSubmit={handleSubmit} className='flex flex-col card p-4 md:p-8 lg:p-12 shadow-lg bg-base-100 lg:w-1/4 w-3/5'>
           <div className='flex flex-col gap-3 my-4'>
             <label htmlFor="cedula" className='text-lg font-bold text-white md:text-xl lg:text-2xl'>Cedula</label>
             <input type="text" value={cedula} onChange={(e) => setCedula(e.target.value)} className='input input-bordered w-full lg:text-xl' />

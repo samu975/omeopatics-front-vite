@@ -73,8 +73,8 @@ const EditPatient = () => {
       setError(prev => ({ ...prev, phone: 'El teléfono debe tener al menos 10 caracteres' }))
       hasError = true
     }
-    if (patient.cedula && patient.cedula.length < 10) {
-      setError(prev => ({ ...prev, cedula: 'La cédula debe tener al menos 10 caracteres' }))
+    if (patient.cedula && patient.cedula.length < 5) {
+      setError(prev => ({ ...prev, cedula: 'La cédula debe tener al menos 5 caracteres' }))
       hasError = true
     }
 

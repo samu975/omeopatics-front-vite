@@ -305,7 +305,7 @@ const ResultadosAnalisis = () => {
           </ResponsiveContainer>
           {/* Leyenda personalizada debajo del gráfico */}
           <ul className="w-full flex flex-col gap-2 mt-4">
-            {recibirData.map((entry, idx) => (
+            {expresarData.map((entry, idx) => (
               <li key={`legend-bar-${idx}`} className="flex items-center justify-between">
                 <span className="flex items-center gap-2">
                   <span style={{ background: entry.color, width: 16, height: 16, display: 'inline-block', borderRadius: 4 }}></span>
